@@ -13,7 +13,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 3000,
+    port: 2006,
     hot: true,
     hotOnly: true,
     inline: true,
@@ -26,6 +26,13 @@ module.exports = {
     ignored: '/node_modules/',
   },
 
+  // -----Aliases for path-----------------------------
+  resolve: {
+    alias: {
+      Utils: path.resolve(__dirname, 'src/utils/'),
+    },
+  },
+  // --------------------------------------------------
   module: {
     rules: [{
         test: /\.(js|jsx|ts|tsx)$/,
