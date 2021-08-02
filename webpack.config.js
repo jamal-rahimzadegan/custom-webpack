@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 //  base confs of webpack goes here ----------------------------------------------
 const basics = {
@@ -62,8 +64,15 @@ const plugins = [
   new HTMLWebpackPlugin({
     template: "./public/index.html",
   }),
+  new CleanWebpackPlugin(),
   new webpack.HotModuleReplacementPlugin({}),
 ];
+
+//----- Optimization -------------------------------------------------------------
+const optimization = {
+  minimize: true,
+  minimizer: [new TerserPlugin()],
+};
 
 //----- main object of webpack ----------------------------------------------------
 module.exports = {
@@ -74,4 +83,5 @@ module.exports = {
     rules,
   },
   plugins,
+  optimization,
 };
