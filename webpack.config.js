@@ -3,6 +3,7 @@ const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+//  base confs of webpack goes here ----------------------------------------------
 const basics = {
   mode: "development",
   entry: "/src/index.js",
@@ -13,6 +14,7 @@ const basics = {
   },
 };
 
+//-------- confs related to the local development server---------------------------
 const devServer = {
   contentBase: path.join(__dirname, "build"),
   compress: true,
@@ -22,11 +24,14 @@ const devServer = {
   liveReload: true,
 };
 
+//----- Aliases configs------------------------------------------------------------
 const resolve = {
   alias: {
     Utils: path.resolve(__dirname, "src/utils/"),
   },
 };
+
+//----- Rules of webpack ----------------------------------------------------------
 
 const rules = [
   {
@@ -51,6 +56,7 @@ const rules = [
   },
 ];
 
+//---- webpack plugins- ----------------------------------------------------------
 const plugins = [
   new MiniCssExtractPlugin({}),
   new HTMLWebpackPlugin({
@@ -59,6 +65,7 @@ const plugins = [
   new webpack.HotModuleReplacementPlugin({}),
 ];
 
+//----- main object of webpack ----------------------------------------------------
 module.exports = {
   ...basics,
   devServer,
