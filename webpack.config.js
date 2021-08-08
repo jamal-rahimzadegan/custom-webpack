@@ -1,20 +1,21 @@
 const webpack = require("webpack");
 const path = require("path");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const WebpackObfuscator = require("webpack-obfuscator"); // todo: add me to the app
-const JavaScriptObfuscator = require("webpack-obfuscator");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-//  files regex ---------------------------------------------------------
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const TerserPlugin = require("terser-webpack-plugin");
+const WebpackObfuscator = require("webpack-obfuscator"); // todo: add me to the app
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+//-- Regex List ---------------------------------------------------------
 const JS_REGEX = /\.(js|jsx|ts|tsx)$/;
 const HTML_REGEX = /\.html$/;
 const CSS_REGEX = /\.css$/;
 const SASS_REGEX = /\.(scss|sass)$/;
 
-//  base configs of webpack goes here ----------------------------------------------
+//-- Base configs of webpack goes here ----------------------------------------------
 const setBasicConfig = (env, argv, mode) => {
   return {
     mode,
@@ -27,7 +28,7 @@ const setBasicConfig = (env, argv, mode) => {
   };
 };
 
-//-------- confs related to the local development server---------------------------
+//-- Configs related to the local development server------------------------------
 const devServer = {
   contentBase: path.join(__dirname, "build"),
   compress: true,
@@ -38,15 +39,14 @@ const devServer = {
   stats: true,
 };
 
-//----- Aliases configs------------------------------------------------------------
+//-- Aliases configs---------------------------------------------------------------
 const resolve = {
   alias: {
     Utils: path.resolve(__dirname, "src/utils/"),
   },
 };
 
-//----- Rules of webpack ----------------------------------------------------------
-
+//-- Webpack Rules -----------------------------------------------------------------
 const rules = [
   {
     test: JS_REGEX,
@@ -70,7 +70,7 @@ const rules = [
   },
 ];
 
-//---- webpack plugins- ----------------------------------------------------------
+//-- Webpack plugins ----------------------------------------------------------------
 const plugins = (env, argv, mode) => {
   return [
     new HTMLWebpackPlugin({
@@ -86,13 +86,13 @@ const plugins = (env, argv, mode) => {
   ];
 };
 
-//----- Optimization -------------------------------------------------------------
+//-- Optimization -----------------------------------------------------------------
 const optimization = {
   minimize: true,
   minimizer: [new TerserPlugin()],
 };
 
-//----- main object of webpack ----------------------------------------------------
+//-- Main Webpack object ----------------------------------------------------------
 module.exports = (env, argv) => {
   const mode = env.WEBPACK_SERVE ? "development" : "production";
 
