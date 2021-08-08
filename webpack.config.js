@@ -89,7 +89,11 @@ const plugins = (env, argv, mode) => {
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
   minimize: true,
-  minimizer: [new TerserPlugin()],
+  minimizer: [
+    new TerserPlugin({
+      terserOptions: { mangle: true, extractComments: true },
+    }),
+  ],
 };
 
 //-- Main Webpack object ----------------------------------------------------------
