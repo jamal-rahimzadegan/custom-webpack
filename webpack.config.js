@@ -4,25 +4,27 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const WebpackObfuscator = require("webpack-obfuscator"); //add me
+const WebpackObfuscator = require("webpack-obfuscator"); // todo: add me to the app
 const JavaScriptObfuscator = require("webpack-obfuscator");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 //  files regex ---------------------------------------------------------
-const jsRegex = /\.(js|jsx|ts|tsx)$/;
-const htmlRegex = /\.html$/;
-const cssRegex = /\.css$/;
-const sassRegex = /\.(scss|sass)$/;
+const JS_REGEX = /\.(js|jsx|ts|tsx)$/;
+const HTML_REGEX = /\.html$/;
+const CSS_REGEX = /\.css$/;
+const SASS_REGEX = /\.(scss|sass)$/;
 
-//  base confs of webpack goes here ----------------------------------------------
-const basics = {
-  mode: "development",
-  entry: "/src/index.js",
-  output: {
-    path: path.resolve("build"),
-    filename: "[name].[contentHash].js",
-    publicPath: "/",
-  },
+//  base configs of webpack goes here ----------------------------------------------
+const setBasicConfig = (env, argv, mode) => {
+  return {
+    mode,
+    entry: "/src/index.js",
+    output: {
+      path: path.resolve("build"),
+      filename: "[name].[contenthash].js",
+      publicPath: "/",
+    },
+  };
 };
 
 //-------- confs related to the local development server---------------------------
@@ -47,23 +49,23 @@ const resolve = {
 
 const rules = [
   {
-    test: jsRegex,
+    test: JS_REGEX,
     exclude: /node_modules/,
     use: "babel-loader",
   },
   {
-    test: htmlRegex,
+    test: HTML_REGEX,
     use: "html-loader",
   },
   /*Choose only one of the following two: if you're using
       plain CSS, use the first one, and if you're using a
       preprocessor, in this case SASS, use the second one*/
   {
-    test: cssRegex,
+    test: CSS_REGEX,
     use: [MiniCssExtractPlugin.loader, "css-loader"],
   },
   {
-    test: sassRegex,
+    test: SASS_REGEX,
     use: ["style-loader", "css-loader", "sass-loader"],
   },
 ];
@@ -92,12 +94,10 @@ const optimization = {
 
 //----- main object of webpack ----------------------------------------------------
 module.exports = (env, argv) => {
-  console.log(`--- argv ----> `, argv);
-
-  const mode = argv.mode || "development"; // dev mode by default
+  const mode = env.WEBPACK_SERVE ? "development" : "production";
 
   return {
-    ...basics,
+    ...setBasicConfig(env, argv, mode),
     devServer,
     resolve,
     module: {

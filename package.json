@@ -30,7 +30,8 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "mock-production": "serve -s build"
   },
   "keywords": [],
   "author": "",

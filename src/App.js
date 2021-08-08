@@ -2,6 +2,8 @@ import React from "react";
 import { plusAll } from "Utils";
 
 export default function App() {
+  console.log(`--- mode in app ----> `, process.env.NODE_ENV);
+
   return (
     <div>
       <p>App page</p>
