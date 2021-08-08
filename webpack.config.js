@@ -4,14 +4,23 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const WebpackObfuscator = require("webpack-obfuscator"); //add me
+const JavaScriptObfuscator = require("webpack-obfuscator");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
+//  files regex ---------------------------------------------------------
+const jsRegex = /\.(js|jsx|ts|tsx)$/;
+const htmlRegex = /\.html$/;
+const cssRegex = /\.css$/;
+const sassRegex = /\.(scss|sass)$/;
 
 //  base confs of webpack goes here ----------------------------------------------
 const basics = {
   mode: "development",
   entry: "/src/index.js",
   output: {
-    filename: "bundle.js",
     path: path.resolve("build"),
+    filename: "[name].[contentHash].js",
     publicPath: "/",
   },
 };
@@ -24,6 +33,7 @@ const devServer = {
   hot: true,
   inline: true,
   liveReload: true,
+  stats: true,
 };
 
 //----- Aliases configs------------------------------------------------------------
@@ -37,36 +47,42 @@ const resolve = {
 
 const rules = [
   {
-    test: /\.(js|jsx|ts|tsx)$/,
+    test: jsRegex,
     exclude: /node_modules/,
     use: "babel-loader",
   },
   {
-    test: /\.html$/,
+    test: htmlRegex,
     use: "html-loader",
   },
   /*Choose only one of the following two: if you're using
-    plain CSS, use the first one, and if you're using a
-    preprocessor, in this case SASS, use the second one*/
+      plain CSS, use the first one, and if you're using a
+      preprocessor, in this case SASS, use the second one*/
   {
-    test: /\.css$/,
+    test: cssRegex,
     use: [MiniCssExtractPlugin.loader, "css-loader"],
   },
   {
-    test: /\.scss$/,
+    test: sassRegex,
     use: ["style-loader", "css-loader", "sass-loader"],
   },
 ];
 
 //---- webpack plugins- ----------------------------------------------------------
-const plugins = [
-  new MiniCssExtractPlugin({}),
-  new HTMLWebpackPlugin({
-    template: "./public/index.html",
-  }),
-  new CleanWebpackPlugin(),
-  new webpack.HotModuleReplacementPlugin({}),
-];
+const plugins = (env, argv, mode) => {
+  return [
+    new HTMLWebpackPlugin({
+      template: "./public/index.html",
+    }),
+    new CssMinimizerPlugin(),
+    new MiniCssExtractPlugin({}),
+    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin({}),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(mode),
+    }),
+  ];
+};
 
 //----- Optimization -------------------------------------------------------------
 const optimization = {
@@ -75,13 +91,19 @@ const optimization = {
 };
 
 //----- main object of webpack ----------------------------------------------------
-module.exports = {
-  ...basics,
-  devServer,
-  resolve,
-  module: {
-    rules,
-  },
-  plugins,
-  optimization,
+module.exports = (env, argv) => {
+  console.log(`--- argv ----> `, argv);
+
+  const mode = argv.mode || "development"; // dev mode by default
+
+  return {
+    ...basics,
+    devServer,
+    resolve,
+    module: {
+      rules,
+    },
+    plugins: plugins(env, argv, mode),
+    optimization,
+  };
 };
