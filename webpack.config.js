@@ -6,7 +6,6 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const TerserPlugin = require("terser-webpack-plugin");
-const WebpackObfuscator = require("webpack-obfuscator"); // todo: add me to the app
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 //-- Regex List ---------------------------------------------------------
@@ -37,6 +36,10 @@ const devServer = {
   inline: true,
   liveReload: true,
   stats: true,
+  // Adds headers to all responses ==> eg. CORS
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+  },
 };
 
 //-- Aliases configs---------------------------------------------------------------
@@ -89,11 +92,7 @@ const plugins = (env, argv, mode) => {
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
   minimize: true,
-  minimizer: [
-    new TerserPlugin({
-      terserOptions: { mangle: true, extractComments: true },
-    }),
-  ],
+  minimizer: [new TerserPlugin({})],
 };
 
 //-- Main Webpack object ----------------------------------------------------------
