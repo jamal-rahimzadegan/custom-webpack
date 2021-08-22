@@ -2,8 +2,8 @@ const webpack = require("webpack");
 const path = require("path");
 
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -11,8 +11,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 //-- Regex List ---------------------------------------------------------
 const JS_REGEX = /\.(js|jsx|ts|tsx)$/;
 const HTML_REGEX = /\.html$/;
-const CSS_REGEX = /\.css$/;
-const SASS_REGEX = /\.(scss|sass)$/;
+const STYLES_REGEX = /.s?css$/;
 
 //-- Base configs of webpack goes here ----------------------------------------------
 const setBasicConfig = (env, argv, mode) => {
@@ -20,9 +19,10 @@ const setBasicConfig = (env, argv, mode) => {
     mode,
     entry: "/src/index.js",
     output: {
-      path: path.resolve("build"),
+      path: path.resolve(__dirname, "build"),
       filename: "[name].[contenthash].js",
       publicPath: "/",
+      // publicPath: "/build", //the default is "/"
     },
   };
 };
@@ -60,16 +60,9 @@ const rules = [
     test: HTML_REGEX,
     use: "html-loader",
   },
-  /*Choose only one of the following two: if you're using
-      plain CSS, use the first one, and if you're using a
-      preprocessor, in this case SASS, use the second one*/
   {
-    test: CSS_REGEX,
-    use: [MiniCssExtractPlugin.loader, "css-loader"],
-  },
-  {
-    test: SASS_REGEX,
-    use: ["style-loader", "css-loader", "sass-loader"],
+    test: STYLES_REGEX,
+    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
   },
 ];
 
@@ -79,7 +72,6 @@ const plugins = (env, argv, mode) => {
     new HTMLWebpackPlugin({
       template: "./public/index.html",
     }),
-    new CssMinimizerPlugin(),
     new MiniCssExtractPlugin({}),
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin({}),
@@ -92,7 +84,7 @@ const plugins = (env, argv, mode) => {
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
   minimize: true,
-  minimizer: [new TerserPlugin({})],
+  minimizer: [new CssMinimizerPlugin(), new TerserPlugin({})],
 };
 
 //-- Main Webpack object ----------------------------------------------------------
