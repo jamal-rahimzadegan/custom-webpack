@@ -22,7 +22,6 @@ const setBasicConfig = (env, argv, mode) => {
       path: path.resolve(__dirname, "build"),
       filename: "[name].[contenthash].js",
       publicPath: "/",
-      // publicPath: "/build", //the default is "/"
     },
   };
 };
@@ -36,7 +35,19 @@ const devServer = {
   inline: true,
   liveReload: true,
   stats: true,
-  // Adds headers to all responses ==> eg. CORS
+  // redirect all calls from http://0.0.0.0:2006/api/* to http://0.0.0.0:8080/*  (proxy)
+  proxy: {
+    '/api': {
+      target: {
+        host: "0.0.0.0",
+        protocol: 'http:',
+        port: 8080
+      },
+      pathRewrite: {
+        '^/api': ''
+      }
+    }
+  }  // Adds headers to all responses ==> eg. CORS
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
