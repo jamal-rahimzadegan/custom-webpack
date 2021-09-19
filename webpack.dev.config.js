@@ -2,10 +2,8 @@ const webpack = require("webpack");
 const path = require("path");
 
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 //-- Regex List ---------------------------------------------------------
@@ -20,7 +18,7 @@ const setBasicConfig = (env, argv, mode) => {
     entry: "/src/index.js",
     output: {
       path: path.resolve(__dirname, "build"),
-      filename: "[name].[contenthash].js",
+      filename: "[name].js",
       publicPath: "/",
     },
   };
@@ -73,7 +71,7 @@ const rules = [
   },
   {
     test: STYLES_REGEX,
-    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+    use: ["style-loader", "css-loader", "sass-loader"],
   },
 ];
 
@@ -83,7 +81,6 @@ const plugins = (env, argv, mode) => {
     new HTMLWebpackPlugin({
       template: "./public/index.html",
     }),
-    new MiniCssExtractPlugin({}),
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin({}),
     new webpack.DefinePlugin({
@@ -95,12 +92,12 @@ const plugins = (env, argv, mode) => {
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
   minimize: true,
-  minimizer: [new CssMinimizerPlugin(), new TerserPlugin({})],
+  minimizer: [new CssMinimizerPlugin()],
 };
 
 //-- Main Webpack object ----------------------------------------------------------
 module.exports = (env, argv) => {
-  const mode = env.WEBPACK_SERVE ? "development" : "production";
+  const mode = "development";
 
   return {
     ...setBasicConfig(env, argv, mode),
