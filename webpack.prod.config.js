@@ -17,7 +17,18 @@ const STYLES_REGEX = /.s?css$/;
 const setBasicConfig = (env, argv, mode) => {
   return {
     mode,
-    entry: "/src/index.js",
+    entry: {
+      // using multiple entries and dependOn for code splitting
+      "first-bundle": {
+        import: "./src/index.js",
+        dependOn: "shared",
+      },
+      "second-bundle": {
+        import: "./src/another.js",
+        dependOn: "shared",
+      },
+      shared: "axios", // common lib for preventing duplication
+    },
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "[name].[contenthash].js",
@@ -83,7 +94,9 @@ const plugins = (env, argv, mode) => {
     new HTMLWebpackPlugin({
       template: "./public/index.html",
     }),
-    new MiniCssExtractPlugin({}),
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash].css",
+    }),
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(mode),
@@ -93,6 +106,7 @@ const plugins = (env, argv, mode) => {
 
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
+  runtimeChunk: "single", // If we're going to use multiple entry points on a single HTML page (code-splitting)
   minimize: true,
   minimizer: [new CssMinimizerPlugin(), new TerserPlugin({})],
 };

@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --config webpack.dev.config.js",
+    "dev": "webpack serve --config webpack.dev.config.js --hot",
     "build": "webpack --config webpack.prod.config.js",
     "deploy-local": "serve -s build"
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hot-loader": "^4.13.0"
+    "serve": "^12.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -25,6 +26,7 @@
     "mini-css-extract-plugin": "^2.1.0",
     "node-sass": "4.14",
     "prettier": "^2.3.2",
+    "react-hot-loader": "^4.13.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.1.0",
     "terser-webpack-plugin": "^5.1.4",
