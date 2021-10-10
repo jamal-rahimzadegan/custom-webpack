@@ -106,6 +106,9 @@ const plugins = (env, argv, mode) => {
 
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
+  splitChunks: {
+    chunks: "all", // for extracting common dependencies
+  },
   runtimeChunk: "single", // If we're going to use multiple entry points on a single HTML page (code-splitting)
   minimize: true,
   minimizer: [new CssMinimizerPlugin(), new TerserPlugin({})],
