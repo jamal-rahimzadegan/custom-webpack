@@ -9,9 +9,11 @@ const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 //-- Regex List ---------------------------------------------------------
-const JS_REGEX = /\.(js|jsx|ts|tsx)$/;
-const HTML_REGEX = /\.html$/;
-const STYLES_REGEX = /.s?css$/;
+const FILE_REGEX = {
+  js: /\.(js|jsx|ts|tsx)$/,
+  html: /\.html$/,
+  styles: /.s?css$/,
+};
 
 //-- Base configs of webpack goes here ----------------------------------------------
 const setBasicConfig = (env, argv, mode) => {
@@ -74,16 +76,16 @@ const resolve = {
 //-- Webpack Rules -----------------------------------------------------------------
 const rules = [
   {
-    test: JS_REGEX,
+    test: FILE_REGEX.js,
     exclude: /node_modules/,
     use: "babel-loader",
   },
   {
-    test: HTML_REGEX,
+    test: FILE_REGEX.html,
     use: "html-loader",
   },
   {
-    test: STYLES_REGEX,
+    test: FILE_REGEX.styles,
     use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
   },
 ];
