@@ -8,7 +8,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-//-- Regex List ---------------------------------------------------------
+//-- Regex of Files goes here ---------------------------------------------------------
 const FILE_REGEX = {
   js: /\.(js|jsx|ts|tsx)$/,
   html: /\.html$/,
@@ -39,7 +39,7 @@ const setBasicConfig = (env, argv, mode) => {
   };
 };
 
-//-- Configs related to the local development server------------------------------
+//-- Config that is related to the local development server------------------------------
 const devServer = {
   contentBase: path.join(__dirname, "build"),
   compress: true,
@@ -66,7 +66,7 @@ const devServer = {
   },
 };
 
-//-- Aliases configs---------------------------------------------------------------
+//-- Aliases configs (for shorter path in imports)-------------------------------------------------------------
 const resolve = {
   alias: {
     Utils: path.resolve(__dirname, "src/utils/"),
@@ -94,7 +94,14 @@ const rules = [
 const plugins = (env, argv, mode) => {
   return [
     new HTMLWebpackPlugin({
-      template: "./public/index.html",
+      filename: "index.html",
+      chunks: ["first-bundle"], // same as entry point name
+      title: "first-bundle",
+    }),
+    new HTMLWebpackPlugin({
+      filename: "second-page.html",
+      chunks: ["second-bundle"], // same as entry point name
+      title: "second-bundle",
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
@@ -110,6 +117,8 @@ const plugins = (env, argv, mode) => {
 const optimization = {
   splitChunks: {
     chunks: "all", // for extracting common dependencies
+    minSize: 20000, // min size of file to split
+    automaticNameDelimiter: "_", // This option lets you specify the delimiter to use for the generated names.
   },
   runtimeChunk: "single", // If we're going to use multiple entry points on a single HTML page (code-splitting)
   minimize: true,
@@ -122,12 +131,12 @@ module.exports = (env, argv) => {
 
   return {
     ...setBasicConfig(env, argv, mode),
+    plugins: plugins(env, argv, mode),
     devServer,
     resolve,
+    optimization,
     module: {
       rules,
     },
-    plugins: plugins(env, argv, mode),
-    optimization,
   };
 };
