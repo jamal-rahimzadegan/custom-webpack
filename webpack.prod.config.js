@@ -1,15 +1,13 @@
 const webpack = require("webpack");
 const path = require("path");
-
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 //-- Regex of Files goes here ---------------------------------------------------------
-const FILE_REGEX = {
+const REGEX = {
   js: /\.(js|jsx|ts|tsx)$/,
   html: /\.html$/,
   styles: /.s?css$/,
@@ -19,27 +17,16 @@ const FILE_REGEX = {
 const setBasicConfig = (env, argv, mode) => {
   return {
     mode,
-    entry: {
-      // using multiple entries and dependOn for code splitting
-      "first-bundle": {
-        import: "./src/index.js",
-        dependOn: "shared",
-      },
-      "second-bundle": {
-        import: "./src/another.js",
-        dependOn: "shared",
-      },
-      shared: "axios", // common lib for preventing duplication
-    },
+    entry: "/src/index.js",
     output: {
       path: path.resolve(__dirname, "build"),
-      filename: "[name].[contenthash].js",
-      publicPath: "/",
+      filename: "[name].js",
+      publicPath: "/static/",
     },
   };
 };
 
-//-- Config that is related to the local development server------------------------------
+//-- Configs related to the local development server------------------------------
 const devServer = {
   contentBase: path.join(__dirname, "build"),
   compress: true,
@@ -66,7 +53,7 @@ const devServer = {
   },
 };
 
-//-- Aliases configs (for shorter path in imports)-------------------------------------------------------------
+//-- Aliases configs---------------------------------------------------------------
 const resolve = {
   alias: {
     Utils: path.resolve(__dirname, "src/utils/"),
@@ -76,17 +63,17 @@ const resolve = {
 //-- Webpack Rules -----------------------------------------------------------------
 const rules = [
   {
-    test: FILE_REGEX.js,
+    test: REGEX.js,
     exclude: /node_modules/,
     use: "babel-loader",
   },
   {
-    test: FILE_REGEX.html,
+    test: REGEX.html,
     use: "html-loader",
   },
   {
-    test: FILE_REGEX.styles,
-    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+    test: REGEX.styles,
+    use: ["style-loader", "css-loader", "sass-loader"],
   },
 ];
 
@@ -94,19 +81,13 @@ const rules = [
 const plugins = (env, argv, mode) => {
   return [
     new HTMLWebpackPlugin({
-      filename: "index.html",
-      chunks: ["first-bundle"], // same as entry point name
-      title: "first-bundle",
-    }),
-    new HTMLWebpackPlugin({
-      filename: "second-page.html",
-      chunks: ["second-bundle"], // same as entry point name
-      title: "second-bundle",
+      template: "./public/index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
+      filename: "main.[contenthash].css",
     }),
     new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin({}),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(mode),
     }),
@@ -115,12 +96,6 @@ const plugins = (env, argv, mode) => {
 
 //-- Optimization -----------------------------------------------------------------
 const optimization = {
-  splitChunks: {
-    chunks: "all", // for extracting common dependencies
-    minSize: 20000, // min size of file to split
-    automaticNameDelimiter: "_", // This option lets you specify the delimiter to use for the generated names.
-  },
-  runtimeChunk: "single", // If we're going to use multiple entry points on a single HTML page (code-splitting)
   minimize: true,
   minimizer: [new CssMinimizerPlugin(), new TerserPlugin({})],
 };
@@ -131,12 +106,12 @@ module.exports = (env, argv) => {
 
   return {
     ...setBasicConfig(env, argv, mode),
-    plugins: plugins(env, argv, mode),
     devServer,
     resolve,
-    optimization,
     module: {
       rules,
     },
+    plugins: plugins(env, argv, mode),
+    optimization,
   };
 };
