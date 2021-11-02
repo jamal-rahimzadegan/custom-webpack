@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --config webpack.dev.config.js --hot",
-    "build": "webpack --config webpack.prod.config.js",
+    "dev": "webpack serve --config src/configs/webpack.dev.config.js --hot",
+    "build": "webpack --config src/configs/webpack.prod.config.js",
     "deploy-local": "serve -s build",
     "start-server": "node server.js"
   },

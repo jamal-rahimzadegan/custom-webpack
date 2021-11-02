@@ -14,4 +14,4 @@ app.get("/", (req, res) => {
 // loading css files
 app.use("/static", express.static(path.resolve(__dirname, "build")));
 
-app.listen(port, () => console.log(`--- app is running on  port----> `, port));
+app.listen(port, () => console.log(`--- app is running on ----> `, port));
