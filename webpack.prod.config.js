@@ -2,9 +2,11 @@ const webpack = require("webpack");
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
@@ -94,6 +96,7 @@ const plugins = (env, argv, mode) => {
       "process.env.NODE_ENV": JSON.stringify(mode),
     }),
     new BundleAnalyzerPlugin(),
+    new CompressionPlugin({ algorithm: "gzip", test: REGEX.js }), // for gzip
   ];
 };
 
