@@ -95,7 +95,7 @@ const plugins = (env, argv, mode) => {
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(mode),
     }),
-    new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({ openAnalyzer: false }),
     new CompressionPlugin({ algorithm: "gzip", test: REGEX.js }), // for gzip
   ];
 };
