@@ -5,6 +5,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 //-- Regex of Files goes here ---------------------------------------------------------
 const REGEX = {
@@ -91,6 +93,7 @@ const plugins = (env, argv, mode) => {
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(mode),
     }),
+    new BundleAnalyzerPlugin(),
   ];
 };
 
