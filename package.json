@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "webpack serve --config src/configs/webpack.dev.config.js --hot",
     "build": "webpack --config src/configs/webpack.prod.config.js",
-    "deploy-local": "serve -s build",
-    "start-server": "node server.js"
+    "live-prod": "serve -s build",
+    "prod": "node server.js"
   },
   "dependencies": {
     "axios": "^0.21.4",
