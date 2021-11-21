@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { plusAll, apiService } from "./utils";
+import React from "react";
+import { apiService, plusAll } from "Utils";
 
 export default function App() {
   const getDummyData = async () => {
@@ -9,16 +9,11 @@ export default function App() {
     console.log(`--- res ----> `, res);
   };
 
-  useEffect(() => {
-    getDummyData();
-  }, []);
-
   return (
     <div>
       <p>it is a page</p>
       <button onClick={getDummyData}>get dummy data</button>
       <button onClick={() => plusAll(71, 0)}>add all</button>
-      wowojf;aksjdflkjas;ldkj
     </div>
   );
 }

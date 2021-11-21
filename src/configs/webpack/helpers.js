@@ -1,7 +1,8 @@
 const { BASE_DIR } = require("./constants");
 
-function generateDIR(routePath) {
-  return BASE_DIR + routePath;
+// pass the dir according to the root dir
+function generateDIR(dir) {
+  return BASE_DIR + dir;
 }
 
 module.exports = {
