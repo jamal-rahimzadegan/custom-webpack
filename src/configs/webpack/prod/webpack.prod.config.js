@@ -1,9 +1,8 @@
 const path = require("path");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const { devServer } = require("./webpack/dev-server");
-const rules = require("./webpack/rules");
-const plugins = require("./webpack/plugins");
+const { devServer } = require("./chunks/dev-server");
+const rules = require("./chunks/rules");
+const plugins = require("./chunks/plugins");
+const { optimization } = require("./chunks/optimization");
 
 //-- Base configs of webpack goes here ----------------------------------------------
 const basics = {
@@ -19,14 +18,8 @@ const basics = {
 //-- Aliases configs---------------------------------------------------------------
 const resolve = {
   alias: {
-    Utils: path.resolve(__dirname, "../utils/"),
+    // Utils: path.resolve(__dirname, "../../../../utils/"),
   },
-};
-
-//-- Optimization -----------------------------------------------------------------
-const optimization = {
-  minimize: true,
-  minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
 };
 
 //-- Main Webpack object ----------------------------------------------------------

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --config src/configs/webpack.dev.config.js --hot",
-    "build": "webpack --config src/configs/webpack.prod.config.js",
+    "dev": "webpack serve --config src/configs/webpack/dev/webpack.dev.config.js --hot",
+    "build": "webpack --config src/configs/webpack/prod/webpack.prod.config.js",
     "live-prod": "serve -s build",
     "prod": "node server.js"
   },
@@ -13,10 +13,10 @@
     "axios": "^0.21.4",
     "express": "^4.17.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "serve": "^12.0.1"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "serve": "^12.0.1",
     "@babel/core": "^7.14.6",
     "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",

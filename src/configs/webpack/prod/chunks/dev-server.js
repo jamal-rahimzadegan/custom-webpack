@@ -3,12 +3,12 @@ const path = require("path");
 module.exports = {
   contentBase: path.join(__dirname, "../../build"),
   compress: true,
-  port: 2006,
+  port: 8888,
   hot: true,
   inline: true,
   liveReload: true,
   stats: true,
-  // redirect all calls from http://0.0.0.0:2006/api/* to http://0.0.0.0:8080/*  (proxy)
+  // redirect all calls from http://0.0.0.0:8888/api/* to http://0.0.0.0:8080/*  (proxy)
   proxy: {
     "/api": {
       target: {

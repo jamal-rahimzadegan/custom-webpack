@@ -4,7 +4,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const REGEX = require("./constants");
+const REGEX = require("../../constants");
 
 module.exports = [
   new HtmlWebpackPlugin(),
