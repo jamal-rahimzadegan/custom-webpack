@@ -1,4 +1,4 @@
-const { REGEX } = require("../../constants");
+const { REGEX } = require("../constants");
 
 module.exports = [
   {

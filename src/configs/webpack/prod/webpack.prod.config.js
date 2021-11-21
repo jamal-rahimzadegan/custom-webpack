@@ -1,37 +1,19 @@
-const path = require("path");
-const { devServer } = require("./chunks/dev-server");
-const rules = require("./chunks/rules");
+const basicConfig = require("./chunks/basic-configs");
+const devServer = require("./chunks/dev-server");
+const resolve = require("./chunks/resolve");
 const plugins = require("./chunks/plugins");
-const { optimization } = require("./chunks/optimization");
+const optimization = require("./chunks/optimization");
+const rules = require("../shared/rules");
 
-//-- Base configs of webpack goes here ----------------------------------------------
-const basics = {
-  mode: "production",
-  entry: "./src/index.js",
-  output: {
-    path: path.resolve(__dirname, "../../build"),
-    filename: "[name].js",
-    publicPath: "/static/",
-  },
-};
-
-//-- Aliases configs---------------------------------------------------------------
-const resolve = {
-  alias: {
-    // Utils: path.resolve(__dirname, "../../../../utils/"),
-  },
-};
-
-//-- Main Webpack object ----------------------------------------------------------
-module.exports = (env, argv) => {
+module.exports = () => {
   return {
-    ...basics,
+    ...basicConfig,
     devServer,
     resolve,
+    plugins,
+    optimization,
     module: {
       rules,
     },
-    plugins,
-    optimization,
   };
 };
