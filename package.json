@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --config src/configs/webpack/dev/webpack.dev.config.js --hot",
-    "build": "webpack --config src/configs/webpack/prod/webpack.prod.config.js",
+    "dev": "webpack serve --config src/config/webpack/dev/webpack.dev.config.js --hot",
+    "build": "webpack --config src/config/webpack/prod/webpack.prod.config.js",
     "prod-from-serve": "serve -s build",
     "prod-from-server": "node server.js"
   },
