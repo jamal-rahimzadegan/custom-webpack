@@ -1,9 +1,6 @@
 const { BASE_DIR } = require("./constants");
 
-// pass the dir according to the root dir
-function generateDIR(dir) {
-  return BASE_DIR + dir;
-}
+const generateDIR = (dir) => BASE_DIR + dir; // pass the dir according to the root dir
 
 module.exports = {
   generateDIR,

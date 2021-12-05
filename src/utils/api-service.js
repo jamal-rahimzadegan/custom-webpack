@@ -1,9 +1,9 @@
 import axios from "axios";
 
-function createAxiosRequest(method, api, data = {}, headers) {
+function createAxiosRequest(method, url, data = {}, headers) {
   return axios({
     method,
-    url: api,
+    url,
     data,
     headers: {
       ...headers,
@@ -13,13 +13,13 @@ function createAxiosRequest(method, api, data = {}, headers) {
   })
     .then(({ data, status }) => {
       if (status >= 200 && status <= 300) return data;
-      else throw api;
+      else throw url;
     })
     .catch((e) => e);
 }
 
 export default {
-  get(api, data, headers) {
-    return createAxiosRequest("get", api, data, headers);
+  get(url, data, headers) {
+    return createAxiosRequest("get", url, data, headers);
   },
 };
