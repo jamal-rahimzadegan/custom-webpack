@@ -1,5 +1,5 @@
 import React from "react";
-import { apiService, plusAll } from "Utils";
+import { apiService, sumAll } from "Utils";
 
 export default function App() {
   const getDummyData = async () => {
@@ -13,7 +13,7 @@ export default function App() {
     <div>
       <p>it is a page</p>
       <button onClick={getDummyData}>get dummy data</button>
-      <button onClick={() => plusAll(71, 0)}>add all</button>
+      <button onClick={() => sumAll(71, 0)}>add all</button>
     </div>
   );
 }

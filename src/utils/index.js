@@ -1,7 +1,3 @@
-import apiService from "./api-service";
+const sumAll = (a, b) => console.log(a + b);
 
-function plusAll(a, b) {
-  console.log(a + b);
-}
-
-export { plusAll, apiService };
+export { sumAll };
