@@ -1,5 +1,6 @@
 import React from "react";
-import { apiService, sumAll } from "Utils";
+import { sumAll } from "Utils";
+import apiService from "./services/api-service";
 
 export default function App() {
   const getDummyData = async () => {

@@ -7,7 +7,8 @@
     "dev": "webpack serve --config src/config/webpack/dev/webpack.dev.config.js --hot",
     "build": "webpack --config src/config/webpack/prod/webpack.prod.config.js",
     "prod-from-serve": "serve -s build",
-    "prod-from-server": "node server.js"
+    "prod-from-server": "node server.js",
+    "generate-sw": "workbox generateSW workbox-config.js"
   },
   "dependencies": {
     "axios": "^0.21.4",
@@ -16,7 +17,6 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "serve": "^12.0.1",
     "@babel/core": "^7.14.6",
     "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",
@@ -31,12 +31,14 @@
     "prettier": "^2.3.2",
     "react-hot-loader": "^4.13.0",
     "sass-loader": "^12.1.0",
+    "serve": "^12.0.1",
     "style-loader": "^3.1.0",
     "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.45.1",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "workbox-cli": "^6.4.2"
   },
   "keywords": [],
   "author": "",
