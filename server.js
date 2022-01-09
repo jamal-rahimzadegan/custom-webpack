@@ -5,6 +5,10 @@ const path = require("path");
 
 const port = 3000;
 
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "sw.js"));
+});
+
 app.get("/", (req, res) => {
   const pathToHtml = path.resolve(__dirname, "build/index.html");
   const htmlContent = fs.readFileSync(pathToHtml, "utf-8");
