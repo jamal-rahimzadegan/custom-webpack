@@ -1,7 +1,7 @@
 export default function registerServiceWorker() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
-      .register("./sw.js")
+      .register("./sw.js", { scope: "." })
       .then(
         (registration) => {
           console.log("Worker registration successful", registration.scope);
