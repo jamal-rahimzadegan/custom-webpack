@@ -11,6 +11,5 @@ module.exports = [
     filename: "main.[contenthash].css",
   }),
   new CleanWebpackPlugin(),
-  new webpack.HotModuleReplacementPlugin({}),
   new CompressionPlugin({ algorithm: "gzip", test: REGEX.js }), // for gzip
 ];
