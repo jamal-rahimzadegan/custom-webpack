@@ -5,7 +5,7 @@ export default function App() {
   console.log(`--- result of all ----> `, allResult);
 
   const root = document.getElementById("root");
-  root.innerHTML = `<p>hello from the app</p>`;
+  root.innerHTML = `<p class="home">hello from the app</p>`;
 
   return root;
 }

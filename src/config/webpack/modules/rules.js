@@ -5,13 +5,13 @@ module.exports = [
   {
     test: REGEX.js,
     exclude: /node_modules/,
-    use: "babel-loader",
-    // use: {
-    //   loader: "babel-loader",
-    //   options: {
-    //     presets: ["@babel/preset-env"],
-    //   },
-    // },
+    // use: "babel-loader",
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env"],
+      },
+    },
   },
   {
     test: REGEX.html,
