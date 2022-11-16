@@ -3,12 +3,10 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 
-const port = 3000;
+const port = 8000;
 
 app.get("/", (req, res) => {
-  const pathToHtml = path.resolve(__dirname, "build/index.html");
-  const htmlContent = fs.readFileSync(pathToHtml, "utf-8");
-  res.send(htmlContent);
+  res.sendFile(path.join(__dirname, "build/index.html"));
 });
 
 // loading css files

@@ -1,3 +1,3 @@
-const sumAll = (a, b) => console.log(a + b);
+const sumAll = (a, b) => a + b;
 
 export { sumAll };
