@@ -1,11 +1,8 @@
 const { generateDIR } = require("../../helpers");
 
 module.exports = {
-  contentBase: generateDIR("build"),
+  static: generateDIR("build"),
   compress: true,
-  port: 8000,
-  hot: true,
-  inline: true,
+  port: 3000,
   liveReload: true,
-  stats: true,
 };

@@ -1,7 +1,7 @@
-const basicConfig = require("./chunks/basic-configs");
-const devServer = require("./chunks/dev-server");
-const resolve = require("./chunks/resolve");
-const plugins = require("./chunks/plugins");
+const basicConfig = require("./modules/basic-configs");
+const devServer = require("./modules/dev-server");
+const resolve = require("./modules/resolve");
+const plugins = require("./modules/plugins");
 const optimization = require("../shared/optimization");
 const rules = require("../shared/rules");
 
