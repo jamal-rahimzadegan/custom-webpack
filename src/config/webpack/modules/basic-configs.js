@@ -8,7 +8,7 @@ module.exports = (isDev) => {
     target: ["web", "es5"],
     output: {
       path: generateDIR("build"),
-      filename: "[name].js",
+      filename: "[name].[contenthash].js",
       publicPath: "/static/",
       clean: true,
     },

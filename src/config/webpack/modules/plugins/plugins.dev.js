@@ -7,7 +7,6 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 // Plugins are bound to the compiler and applied in the order specified --> Order is important
 module.exports = [
   new HtmlWebpackPlugin({ template: "./public/index.html" }),
-  new CleanWebpackPlugin(),
   new webpack.HotModuleReplacementPlugin({}),
   new MiniCssExtractPlugin({
     filename: "main.[contenthash].css",
