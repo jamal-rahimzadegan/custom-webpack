@@ -5,7 +5,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "sideEffects": false,
   "browserslist": "> 0.25%, not dead",
   "scripts": {
     "dev": "webpack serve --config src/config/webpack/webpack.dev.config.js",
@@ -26,8 +25,8 @@
     "@babel/preset-env": "7.19.4",
     "babel-loader": "8.2.5",
     "clean-webpack-plugin": "4.0.0",
-    "core-js": "^3.26.1",
     "compression-webpack-plugin": "10.0.0",
+    "core-js": "3.26.1",
     "css-loader": "6.7.1",
     "css-minimizer-webpack-plugin": "4.2.2",
     "html-loader": "4.2.0",

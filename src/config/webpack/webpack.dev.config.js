@@ -15,7 +15,7 @@ module.exports = () => {
     optimization: optimization(isDev),
     plugins,
     module: {
-      rules,
+      rules: rules(isDev),
     },
   };
 };

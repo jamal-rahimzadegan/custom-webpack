@@ -11,11 +11,11 @@ module.exports = () => {
   return {
     ...basicConfig(isDev),
     devServer: devServer(isDev),
-    resolve,
     optimization: optimization(isDev),
+    resolve,
     plugins,
     module: {
-      rules,
+      rules: rules(isDev),
     },
   };
 };

@@ -15,5 +15,8 @@ module.exports = [
   new CompressionPlugin({
     algorithm: "gzip",
     test: REGEX.js,
-  }), // for gzip
+  }),
+  new webpack.DefinePlugin({
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  }),
 ];
