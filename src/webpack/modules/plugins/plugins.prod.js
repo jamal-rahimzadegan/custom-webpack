@@ -10,13 +10,13 @@ module.exports = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({ template: "./public/index.html" }),
   new MiniCssExtractPlugin({
-    filename: "main.[contenthash].css",
+    filename: "main.[contenthash].css"
   }),
   new CompressionPlugin({
     algorithm: "gzip",
-    test: REGEX.js,
+    test: REGEX.js
   }),
   new webpack.DefinePlugin({
-    "process.env.NODE_ENV": JSON.stringify("production"),
-  }),
+    "process.env.NODE_ENV": JSON.stringify("production")
+  })
 ];

@@ -18,11 +18,6 @@ module.exports = (isDev) => {
     mode: "development",
     entry: "/src/index.js",
     target: ["web", "es5"],
-    output: {
-      path: generateDIR("build"),
-      filename: "[name].js",
-      publicPath: "/",
-    },
   };
 
   return isDev ? devConfig : prodConfig;

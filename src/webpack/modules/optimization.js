@@ -8,8 +8,6 @@ module.exports = (isDev) => {
 
   const devConfig = {
     usedExports: true,
-    // minimize: true,
-    // minimizer: [new CssMinimizerPlugin()],
   };
 
   return isDev ? devConfig : prodConfig;

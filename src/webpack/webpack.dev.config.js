@@ -10,10 +10,10 @@ module.exports = () => {
 
   return {
     ...basicConfig(isDev),
-    devServer: devServer(isDev),
     resolve,
-    optimization: optimization(isDev),
     plugins,
+    optimization: optimization(isDev),
+    devServer: devServer(isDev),
     module: {
       rules: rules(isDev),
     },
