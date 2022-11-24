@@ -1,11 +1,9 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { REGEX } = require("../common/constants");
 
-// Order of webpack loaders matters!
-
-const BASE_CONFIG = [
+const BASE_RULES = [
   {
-    test: REGEX.js,
+    test: REGEX.JS,
     exclude: /node_modules/,
     use: {
       loader: "babel-loader",
@@ -14,38 +12,33 @@ const BASE_CONFIG = [
       },
     },
   },
-
   {
-    test: REGEX.html,
+    test: REGEX.HTML,
     use: "html-loader",
   },
   {
-    test: REGEX.img,
+    test: REGEX.IMG,
     type: "asset/resource",
   },
   {
-    test: REGEX.fonts,
+    test: REGEX.FONTS,
     type: "asset/resource",
   },
 ];
 
 const prodConfig = [
-  ...BASE_CONFIG,
+  ...BASE_RULES,
   {
-    test: REGEX.styles,
+    test: REGEX.STYLES,
     use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
   },
 ];
 
 const devConfig = [
-  ...BASE_CONFIG,
+  ...BASE_RULES,
   {
-    test: REGEX.styles,
-    use: [
-      { loader: "style-loader", options: { injectType: "styleTag" } },
-      "css-loader",
-      "sass-loader",
-    ],
+    test: REGEX.STYLES,
+    use: ["style-loader", "css-loader", "sass-loader"],
   },
 ];
 
