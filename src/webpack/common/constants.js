@@ -8,7 +8,7 @@ const REGEX = {
   img: /\.(png|svg|jpg|jpeg|gif)$/i,
 };
 
-const ROOT_DIR = path.resolve(__dirname, "../../../../") + "\\";
+const ROOT_DIR = path.resolve(__dirname, "../../../") + "\\";
 
 module.exports = {
   REGEX,
