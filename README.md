@@ -1,2 +1,2 @@
-# ReactJS app with custom Webpack config
+# Custom Webpack Config
 
