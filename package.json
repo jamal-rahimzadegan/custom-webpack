@@ -1,20 +1,17 @@
 {
   "name": "webpack-custom",
   "version": "1.0.0",
-  "description": "",
+  "private": "true",
+  "description": "No Desc",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jamal Rahimzadegan",
+  "license": "Me",
   "browserslist": "> 0.25%, not dead",
   "scripts": {
     "dev": "webpack serve --env NODE_ENV=development --config src/webpack/webpack.config.js",
     "build": "webpack --env NODE_ENV=production --config src/webpack/webpack.config.js",
     "start": "nodemon server.js",
     "deploy": "npm run build & npm start"
-  },
-  "engines": {
-    "npm": ">=8.0.0",
-    "node": ">=16.0.0"
   },
   "dependencies": {
     "axios": "1.2.0"
@@ -46,5 +43,14 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.11.1"
-  }
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
+  "os": [
+    "!darwin",
+    "linux",
+    "win32"
+  ]
 }
